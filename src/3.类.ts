@@ -1,3 +1,6 @@
+import { extname } from "path";
+import { prototype } from "stream";
+
 //定义类
 
 class PerSon{
@@ -89,3 +92,159 @@ namespace b {
 }
 
 
+//属性装饰器
+
+//target 如果装饰的是个普通属性的话。指向的是类的原型
+//target装饰的是一个类的属性static 那么这个target指向的是类的定义
+namespace c{
+    function uperCase(target: any,propertyName: string){
+    
+        let val = target[propertyName]
+        const getter = () => val;
+        const setter = (newVal: string)=>{
+    
+            val = newVal.toUpperCase();
+        }
+        delete target[propertyName]
+        Object.defineProperty(target,propertyName,{
+            get:getter,
+            set: setter,
+            enumerable:true,
+            configurable:true,
+            // writable:true
+        })
+    }
+
+    function methodName(target:any,methodName:string){
+        console.log(target,methodName)
+    }
+    class Person{
+        @uperCase
+        name: string = 'ww'
+        @methodName
+        getName(){
+            console.log('getName')
+        }
+    }
+
+    let person = new Person();
+    person.name='zz'
+    console.log(person.name)
+}
+
+
+//参数装饰器
+namespace d{
+    interface Animal{
+        age: number
+    }
+    function addName(target:any,methodName:string,paramsIndex: number){
+            console.log(target,methodName,paramsIndex)
+    }
+    class Animal{
+        login(username: string, @addName name: string){
+            console.log(username,name)
+        }
+    }
+
+    let a = new Animal()
+    a.login("ww","2")
+  
+}
+
+
+//抽象类
+
+abstract class Animal{
+    name: string="ww";
+    abstract getName():string
+
+}
+
+class Cat extends Animal{
+    getName():string{
+        return this.name
+    }
+}
+let cat = new Cat()
+console.log(cat.getName())
+
+
+//抽象类 vs 接口
+
+
+namespace e{
+    interface Pig{
+        age: number
+    }
+    abstract class Animal{
+        name: string='animal'
+        constructor(){
+
+        }
+    }
+    class  Ele {
+        type: string='ele'
+    }
+    class Cat extends Animal implements Pig{
+        age = 18
+    }
+    let c = new Cat()
+    console.log(c)
+}
+
+//抽象方法
+namespace f{
+    abstract class Animal{
+        name: string='animal'
+        constructor(){
+
+        }
+        abstract getName():void
+    }
+
+    class Cat extends Animal{
+        getName(){
+            console.log(111)
+        }
+    }
+
+    let c = new Cat()
+    c.getName()
+}
+
+//重写（override） vs 重载（overload）
+
+namespace g{
+    class Animal{
+        getName(){
+            console.log('xx')
+        }
+    }
+    class Cat extends Animal{
+        getName(){
+            console.log('gg')
+        }
+    }
+
+    let c = new Cat()
+    c.getName()
+}
+
+
+namespace h{
+    class Animal{
+        getName(){
+            console.log('xx')
+        }
+    }
+    class Cat extends Animal{
+        getName(){
+            console.log('gg')
+            super.getName()   
+        }
+    }
+    
+    let c = new Cat()
+    c.getName()
+}

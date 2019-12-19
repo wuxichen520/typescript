@@ -60,11 +60,11 @@ attr(18)
 //attr(true)
 console.log(obj)
 
-function sum(val1:string,val2:string):string
-function sum(val1:number,val2:number):number
-function sum(val1:any,val2:any){
-    return val1 + val2
-}
+// function sum(val1:string,val2:string):string
+// function sum(val1:number,val2:number):number
+// function sum(val1:any,val2:any){
+//     return val1 + val2
+// }
 sum(1,2)
 //sum(2,"1")
 sum("1","2")
