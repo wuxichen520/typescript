@@ -118,4 +118,94 @@ namespace e{
 
 
     //Pick
+    // type Pick<T,k extends keyof T>  ={ [key in k]:T[key]}
+    type PersonKey5 = Pick<Person,'name'>
+    let p3: PersonKey5 ={
+        name:"1",
+    }
+
  }
+
+
+ //条件类型
+
+ interface Fish {
+     name1: string
+ }
+ interface Fish2 {
+    name1: string
+    age: number
+}
+ interface Water {
+     name2: string
+ }
+ interface Bird {
+    name3: string
+}
+interface Sky {
+    name4: string
+}
+
+type Condition<T> = T extends Fish?Water : Sky
+
+let cond1 : Condition<Fish> = {
+    name2:"2"
+}
+let cond2 : Condition<Fish2> = {
+    name2:"2"
+}
+//条件类型的分发
+type Condition2<T> = T extends Fish?Water : Sky
+let cond3 : Condition<Fish | Bird> = {
+    name2:"2",
+    name4:"3",
+    
+}
+
+let cond4 :Water | Sky = {
+    name2:"2",
+    name4:"3"
+}
+
+//内置条件类型
+
+namespace f{
+
+    type E1 = Exclude<string | number,string>//从前者中排出
+
+    let e1: E1 = 10  //不能为字符串
+
+    type E2 = Extract<string | number,string>//从前者中提取
+
+    let e2: E2 = "1"  //只能为字符串
+
+    type E3 = NonNullable<string | number|undefined|null>//排出为空选项
+    let e3: E3 = "1"  
+    let e4: E3 = 10 
+
+
+    // ReturnType 
+
+    function getUserInfo(){
+        return {name:"xx",age:18}
+    }
+    type UserInfo = ReturnType<typeof getUserInfo>
+
+    let user : UserInfo = {
+        name:"xx",age:18
+    }
+
+    //InstanceType
+
+    class Person{
+        name: string;
+        constructor(name:string){
+            this.name = name
+        }
+    }
+
+    type P = InstanceType<typeof Person> 
+    let p :P = new Person("xx")
+}
+
+
