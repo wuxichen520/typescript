@@ -50,7 +50,7 @@ root!.style.color = 'red' //! 断言不为空
 
 //null 和 undefined
 
-//ull 和 undefined 是其它类型的子类型，可以赋值给其它类型，如数字类型，此时，赋值后的类型会变成 null 或 undefined
+//null 和 undefined 是其它类型的子类型，可以赋值给其它类型，如数字类型，此时，赋值后的类型会变成 null 或 undefined
 // "strict": true,                           /* Enable all strict type-checking options. */
 // // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
 //  "strictNullChecks": false,   
